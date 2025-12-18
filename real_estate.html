@@ -1,0 +1,2722 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Properties | Luxury Real Estate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --charcoal: #2B2B2B;
+            --soft-gold: #D4AF37;
+            --light-gold: #F4E4C1;
+            --white: #FFFFFF;
+            --off-white: #F8F8F8;
+            --gray: #6B6B6B;
+            --light-gray: #E5E5E5;
+            --dark-gray: #3A3A3A;
+            --accent-gold: #C19B4F;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            color: var(--charcoal);
+            background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 5.5rem);
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        h4 {
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+        }
+
+        p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        .large-text {
+            font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+            line-height: 1.9;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+            padding: 1.2rem 5%;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 300;
+            color: var(--charcoal);
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2px;
+            height: 30px;
+            background: var(--soft-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--charcoal);
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--soft-gold);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a:hover {
+            color: var(--soft-gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 2px;
+            background: var(--charcoal);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translateY(8px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-8px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background: linear-gradient(135deg, rgba(43, 43, 43, 0.5) 0%, rgba(43, 43, 43, 0.3) 100%),
+                url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=70&auto=format&fit=crop') center/cover;
+            transform: translateY(0);
+            transition: transform 0.5s ease-out;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to top, var(--white), transparent);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--white);
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.3s;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--light-gold);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .hero h1 {
+            color: var(--white);
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-description {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.3rem 3.5rem;
+            background: var(--soft-gold);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 0.15em;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid var(--soft-gold);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.4s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            width: 2px;
+            height: 50px;
+            background: linear-gradient(to bottom, var(--soft-gold), transparent);
+            display: block;
+            margin: 0 auto;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--charcoal);
+            padding: 5rem 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 4rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 5%;
+            right: 5%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--soft-gold), transparent);
+        }
+
+        .stat-item {
+            opacity: 0;
+            transform: translateY(30px);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: var(--soft-gold);
+            opacity: 0.3;
+        }
+
+        .stat-item.visible {
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .stat-number {
+            font-size: clamp(3rem, 6vw, 5rem);
+            color: var(--soft-gold);
+            font-weight: 300;
+            display: block;
+            margin-bottom: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .stat-label {
+            color: var(--white);
+            font-size: 1.1rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .stat-description {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Video Showcase Section */
+        .video-showcase {
+            padding: 10rem 5%;
+            background: var(--white);
+            position: relative;
+        }
+
+        .video-container {
+            max-width: 1600px;
+            margin: 4rem auto 0;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .video-container.visible {
+            animation: scaleIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Featured Text Section */
+        .featured-text {
+            padding: 8rem 5%;
+            background: var(--off-white);
+            text-align: center;
+        }
+
+        .featured-text-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .featured-text-content.visible {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .featured-text h2 {
+            margin-bottom: 3rem;
+        }
+
+        .featured-text p {
+            margin-bottom: 2rem;
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+        }
+
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 2.5rem;
+            color: var(--soft-gold);
+            margin-top: 3rem;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 10rem 5%;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .section-header.visible {
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .section-subtitle {
+            color: var(--soft-gold);
+            font-size: 1rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .section-description {
+            max-width: 800px;
+            margin: 2rem auto 0;
+            font-size: 1.15rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 4rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .property-card {
+            background: var(--white);
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(40px);
+            position: relative;
+        }
+
+        .property-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .property-card:hover::before {
+            opacity: 1;
+        }
+
+        .property-card.visible {
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .property-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+        }
+
+        .property-image {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+        }
+
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .property-card:hover .property-image img {
+            transform: scale(1.15);
+        }
+
+        .property-tag {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            background: var(--soft-gold);
+            color: var(--white);
+            padding: 0.6rem 1.3rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            z-index: 2;
+            font-weight: 300;
+        }
+
+        .property-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(43, 43, 43, 0.9) 0%, transparent 100%);
+            padding: 2rem;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .property-card:hover .property-overlay {
+            transform: translateY(0);
+        }
+
+        .property-features {
+            color: var(--white);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .property-info {
+            padding: 2.5rem;
+        }
+
+        .property-price {
+            color: var(--soft-gold);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .property-title {
+            font-size: 1.75rem;
+            margin-bottom: 0.8rem;
+            color: var(--charcoal);
+            line-height: 1.3;
+        }
+
+        .property-location {
+            color: var(--gray);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .property-location::before {
+            content: '📍';
+        }
+
+        .property-details {
+            display: flex;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            color: var(--gray);
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .property-description {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            color: var(--gray);
+        }
+
+        .quick-view-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: transparent;
+            border: 2px solid var(--light-gray);
+            color: var(--charcoal);
+            cursor: pointer;
+            font-size: 0.95rem;
+            letter-spacing: 0.15em;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quick-view-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--charcoal);
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .quick-view-btn:hover::before {
+            left: 0;
+        }
+
+        .quick-view-btn:hover {
+            color: var(--white);
+            border-color: var(--charcoal);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 10rem 5%;
+            background: var(--off-white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1800px;
+            margin: 4rem auto 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .gallery-item.visible {
+            animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(43, 43, 43, 0.5));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-item.large {
+            grid-column: span 2;
+            height: 500px;
+        }
+
+        /* About Section */
+        .about {
+            padding: 10rem 5%;
+            background: var(--white);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 6rem;
+            max-width: 1600px;
+            margin: 4rem auto 0;
+            align-items: center;
+        }
+
+        .about-text {
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+
+        .about-text.visible {
+            animation: fadeInLeft 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .about-text h3 {
+            color: var(--soft-gold);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .about-text p {
+            margin-bottom: 2rem;
+            line-height: 1.9;
+        }
+
+        .about-quote {
+            border-left: 3px solid var(--soft-gold);
+            padding-left: 2rem;
+            margin: 3rem 0;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--dark-gray);
+        }
+
+        .about-image {
+            opacity: 0;
+            transform: translateX(40px);
+            position: relative;
+        }
+
+        .about-image.visible {
+            animation: fadeInRight 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            box-shadow: 30px 30px 0 var(--light-gold);
+        }
+
+        .about-accent {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px solid var(--soft-gold);
+            top: -30px;
+            right: -30px;
+            z-index: -1;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            padding: 10rem 5%;
+            background: var(--charcoal);
+            color: var(--white);
+        }
+
+        .philosophy-content {
+            max-width: 1200px;
+            margin: 4rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 5rem;
+        }
+
+        .philosophy-item {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .philosophy-item.visible {
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .philosophy-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            border: 2px solid var(--soft-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--soft-gold);
+            transition: all 0.4s ease;
+        }
+
+        .philosophy-item:hover .philosophy-icon {
+            background: var(--soft-gold);
+            transform: rotate(360deg);
+        }
+
+        .philosophy-item h4 {
+            color: var(--soft-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .philosophy-item p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 10rem 5%;
+            background: var(--off-white);
+        }
+
+        .testimonial-slider {
+            max-width: 1000px;
+            margin: 4rem auto 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .testimonial-slider.visible {
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .testimonial {
+            text-align: center;
+            padding: 4rem;
+            display: none;
+            background: var(--white);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.08);
+        }
+
+        .testimonial.active {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .testimonial-text {
+            font-size: 1.6rem;
+            font-style: italic;
+            color: var(--charcoal);
+            margin-bottom: 3rem;
+            line-height: 1.9;
+            position: relative;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 6rem;
+            color: var(--light-gold);
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-author {
+            color: var(--soft-gold);
+            font-size: 1.1rem;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonial-role {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-top: 3rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dot:hover {
+            background: var(--accent-gold);
+        }
+
+        .dot.active {
+            background: var(--soft-gold);
+            width: 40px;
+            border-radius: 6px;
+        }
+
+        /* Luxury Features Section */
+        .luxury-features {
+            padding: 10rem 5%;
+            background: var(--white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 4rem auto 0;
+        }
+
+        .feature-card {
+            padding: 3rem;
+            background: var(--off-white);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+            border: 1px solid transparent;
+        }
+
+        .feature-card.visible {
+            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .feature-card:hover {
+            background: var(--white);
+            border-color: var(--light-gold);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-card h4 {
+            margin-bottom: 1.5rem;
+            color: var(--charcoal);
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--white);
+            max-width: 1100px;
+            width: 92%;
+            max-height: 92vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background: var(--soft-gold);
+            color: var(--white);
+            border: none;
+            font-size: 1.75rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--charcoal);
+            transform: rotate(90deg);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .modal-body {
+            padding: 4rem;
+        }
+
+        .modal-body h2 {
+            margin-bottom: 2rem;
+        }
+
+        .modal-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--charcoal);
+            padding: 6rem 5% 3rem;
+            color: var(--white);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 4rem;
+            max-width: 1600px;
+            margin: 0 auto 4rem;
+        }
+
+        .footer-section h3 {
+            color: var(--soft-gold);
+            margin-bottom: 2rem;
+            font-size: 1.4rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--soft-gold);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0;
+        }
+
+        .social-links a:hover {
+            border-color: var(--soft-gold);
+            background: var(--soft-gold);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--off-white);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--soft-gold);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 3rem;
+            }
+
+            .gallery-item.large {
+                grid-column: span 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* Mobile-optimized navigation */
+            .navbar {
+                padding: 1.2rem 5%;
+            }
+
+            .navbar.scrolled {
+                padding: 1rem 5%;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .logo::before {
+                left: -15px;
+                height: 25px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--white);
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                gap: 1.5rem;
+                overflow-y: auto;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--light-gray);
+            }
+
+            .menu-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+
+            /* Mobile-optimized hero */
+            .hero {
+                height: 100vh;
+            }
+
+            .hero-subtitle {
+                font-size: 0.85rem;
+                letter-spacing: 0.2em;
+                margin-bottom: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+                padding: 0 1rem;
+            }
+
+            .cta-button {
+                padding: 1rem 2.5rem;
+                font-size: 0.9rem;
+            }
+
+            .scroll-indicator {
+                bottom: 20px;
+            }
+
+            /* Mobile-optimized stats */
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                padding: 3rem 5%;
+            }
+
+            .stat-item {
+                padding: 1.5rem 1rem;
+            }
+
+            .stat-number {
+                font-size: 3rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .stat-label {
+                font-size: 1rem;
+            }
+
+            .stat-description {
+                font-size: 0.85rem;
+            }
+
+            /* Mobile-optimized sections */
+            .section-header {
+                margin-bottom: 3rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.85rem;
+                letter-spacing: 0.2em;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .section-description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            /* Mobile-optimized portfolio */
+            .portfolio {
+                padding: 5rem 5%;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .property-card {
+                margin: 0 auto;
+                max-width: 500px;
+            }
+
+            .property-image {
+                height: 280px;
+            }
+
+            .property-tag {
+                top: 15px;
+                left: 15px;
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+            }
+
+            .property-info {
+                padding: 2rem 1.5rem;
+            }
+
+            .property-price {
+                font-size: 1.75rem;
+            }
+
+            .property-title {
+                font-size: 1.5rem;
+            }
+
+            .property-description {
+                font-size: 0.95rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .property-details {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+                padding: 1rem 0;
+            }
+
+            .quick-view-btn {
+                font-size: 0.85rem;
+                padding: 1rem;
+            }
+
+            /* Mobile-optimized video */
+            .video-showcase {
+                padding: 5rem 5%;
+            }
+
+            .video-container {
+                margin: 2rem auto 0;
+            }
+
+            .video-wrapper {
+                padding-bottom: 56.25%;
+            }
+
+            /* Mobile-optimized featured text */
+            .featured-text {
+                padding: 5rem 5%;
+            }
+
+            .featured-text p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .signature {
+                font-size: 2rem;
+                margin-top: 2rem;
+            }
+
+            /* Mobile-optimized gallery */
+            .gallery {
+                padding: 5rem 5%;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .gallery-item {
+                height: 300px;
+            }
+
+            .gallery-item.large {
+                grid-column: span 1;
+                height: 350px;
+            }
+
+            /* Mobile-optimized about */
+            .about {
+                padding: 5rem 5%;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .about-text h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .about-text p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .about-quote {
+                font-size: 1.1rem;
+                margin: 2rem 0;
+                padding-left: 1.5rem;
+            }
+
+            .about-image img {
+                height: 400px;
+                box-shadow: 20px 20px 0 var(--light-gold);
+            }
+
+            .about-accent {
+                width: 150px;
+                height: 150px;
+                top: -20px;
+                right: -20px;
+            }
+
+            /* Mobile-optimized philosophy */
+            .philosophy {
+                padding: 5rem 5%;
+            }
+
+            .philosophy-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .philosophy-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.75rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .philosophy-item h4 {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+
+            .philosophy-item p {
+                font-size: 0.95rem;
+            }
+
+            /* Mobile-optimized testimonials */
+            .testimonials {
+                padding: 5rem 5%;
+            }
+
+            .testimonial {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .testimonial-text {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+            }
+
+            .testimonial-text::before {
+                font-size: 4rem;
+                top: -20px;
+            }
+
+            .testimonial-author {
+                font-size: 1rem;
+            }
+
+            .testimonial-role {
+                font-size: 0.85rem;
+            }
+
+            .slider-dots {
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+
+            .dot {
+                width: 10px;
+                height: 10px;
+            }
+
+            .dot.active {
+                width: 30px;
+            }
+
+            /* Mobile-optimized luxury features */
+            .luxury-features {
+                padding: 5rem 5%;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .feature-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .feature-icon {
+                font-size: 2.5rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .feature-card h4 {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+
+            .feature-card p {
+                font-size: 0.95rem;
+            }
+
+            /* Mobile-optimized modal */
+            .modal-content {
+                width: 95%;
+                max-height: 95vh;
+            }
+
+            .modal-close {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+            }
+
+            .modal-image {
+                height: 250px;
+            }
+
+            .modal-body {
+                padding: 2rem 1.5rem;
+            }
+
+            .modal-body h2 {
+                font-size: 1.75rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .modal-body p {
+                font-size: 0.95rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .modal-body .property-price {
+                font-size: 1.75rem;
+            }
+
+            .modal-body .property-details {
+                font-size: 0.9rem;
+            }
+
+            /* Mobile-optimized footer */
+            .footer {
+                padding: 4rem 5% 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .footer-section h3 {
+                font-size: 1.2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .footer-section p,
+            .footer-section a {
+                font-size: 0.95rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .social-links {
+                gap: 1.2rem;
+                margin-top: 1.5rem;
+            }
+
+            .social-links a {
+                width: 45px;
+                height: 45px;
+            }
+
+            .footer-bottom {
+                font-size: 0.85rem;
+                padding-top: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            /* Extra small phones */
+            .navbar {
+                padding: 1rem 4%;
+            }
+
+            .logo {
+                font-size: 1.1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+            }
+
+            .cta-button {
+                padding: 0.9rem 2rem;
+                font-size: 0.85rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            .property-card {
+                max-width: 100%;
+            }
+
+            .property-image {
+                height: 250px;
+            }
+
+            .property-info {
+                padding: 1.5rem 1.2rem;
+            }
+
+            .property-price {
+                font-size: 1.5rem;
+            }
+
+            .property-title {
+                font-size: 1.3rem;
+            }
+
+            .property-details {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .gallery-item {
+                height: 250px;
+            }
+
+            .gallery-item.large {
+                height: 300px;
+            }
+
+            .about-image img {
+                height: 300px;
+                box-shadow: 15px 15px 0 var(--light-gold);
+            }
+
+            .about-accent {
+                width: 120px;
+                height: 120px;
+                top: -15px;
+                right: -15px;
+            }
+
+            .testimonial {
+                padding: 2rem 1.2rem;
+            }
+
+            .testimonial-text {
+                font-size: 1.1rem;
+            }
+
+            .modal-image {
+                height: 200px;
+            }
+
+            .modal-body {
+                padding: 1.5rem 1.2rem;
+            }
+        }
+
+        /* Landscape orientation optimization for phones */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                padding: 8rem 5% 4rem;
+            }
+
+            .hero-content {
+                padding: 2rem;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                width: 60%;
+            }
+        }
+
+        /* Touch-friendly enhancements for mobile */
+        @media (max-width: 768px) {
+
+            /* Larger tap targets */
+            .cta-button,
+            .quick-view-btn,
+            .submit-btn {
+                min-height: 48px;
+            }
+
+            .nav-links a {
+                min-height: 48px;
+                display: flex;
+                align-items: center;
+            }
+
+            .dot {
+                min-width: 44px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .social-links a {
+                min-width: 48px;
+                min-height: 48px;
+            }
+
+            /* Prevent zoom on input focus */
+            input,
+            textarea,
+            select {
+                font-size: 16px;
+            }
+
+            /* Smoother scrolling on mobile */
+            html {
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Better button feedback */
+            .cta-button:active,
+            .quick-view-btn:active {
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#" class="logo">ELITE PROPERTIES</a>
+        <ul class="nav-links">
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+        </ul>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle">Curated Excellence</p>
+            <h1>The Art of Sophisticated Living</h1>
+            <p class="hero-description">Where architectural brilliance meets unparalleled luxury. Discover properties
+                that transcend expectation and redefine the essence of home.</p>
+            <a href="#portfolio" class="cta-button">EXPLORE COLLECTION</a>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stat-item">
+            <span class="stat-number" data-target="287">0</span>
+            <span class="stat-label">Properties Sold</span>
+            <p class="stat-description">Curated Transactions</p>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="452">0</span>
+            <span class="stat-label">Happy Clients</span>
+            <p class="stat-description">Lifetime Relationships</p>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="28">0</span>
+            <span class="stat-label">Years Experience</span>
+            <p class="stat-description">Market Leadership</p>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="3.2">0</span>
+            <span class="stat-label">Billion in Sales</span>
+            <p class="stat-description">Record Performance</p>
+        </div>
+    </section>
+
+    <!-- Featured Text Section -->
+    <section class="featured-text">
+        <div class="featured-text-content">
+            <h2>A Legacy of Excellence</h2>
+            <p class="large-text">For nearly three decades, we have been privileged to serve the world's most discerning
+                clientele, matching exceptional individuals with extraordinary properties that reflect their vision,
+                values, and aspirations.</p>
+            <p class="large-text">Our approach is rooted in the belief that luxury real estate is not merely about
+                square footage or amenities—it's about discovering spaces that resonate with one's soul, properties that
+                tell a story, and homes that become the backdrop for life's most precious moments.</p>
+            <p class="large-text">We understand that acquiring a luxury property is a profound decision, one that
+                represents not just an investment in real estate, but an investment in lifestyle, legacy, and the
+                future. This understanding guides every interaction, every recommendation, and every relationship we
+                cultivate.</p>
+            <p class="signature">— Marcus Wellington</p>
+        </div>
+    </section>
+
+    <!-- Video Showcase Section -->
+    <section class="video-showcase">
+        <div class="section-header">
+            <p class="section-subtitle">Experience Excellence</p>
+            <h2>A Journey Through Luxury</h2>
+            <p class="section-description">Immerse yourself in the world of exceptional properties. This curated
+                showcase presents the finest architectural achievements and interior masterpieces from our exclusive
+                portfolio.</p>
+        </div>
+        <div class="video-container">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/jgKCDJTH9S8" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="section-header">
+            <p class="section-subtitle">Featured Collection</p>
+            <h2>Exceptional Properties</h2>
+            <p class="section-description">Each property in our portfolio has been meticulously selected for its
+                architectural significance, prime location, and exceptional quality. These are not merely houses—they
+                are masterpieces of design, comfort, and sophistication.</p>
+        </div>
+        <div class="portfolio-grid">
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=75&auto=format&fit=crop"
+                        alt="Modern Villa" loading="lazy">
+                    <div class="property-tag">Featured</div>
+                    <div class="property-overlay">
+                        <div class="property-features">
+                            <span>🏊 Infinity Pool</span>
+                            <span>🎾 Tennis Court</span>
+                            <span>🏋️ Private Gym</span>
+                            <span>🍷 Wine Cellar</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-info">
+                    <div class="property-price">$4,750,000</div>
+                    <h3 class="property-title">Contemporary Masterpiece</h3>
+                    <p class="property-location">Beverly Hills, California</p>
+                    <p class="property-description">An architectural triumph that seamlessly blends indoor and outdoor
+                        living. This contemporary estate features floor-to-ceiling glass walls, state-of-the-art smart
+                        home technology, and panoramic city views.</p>
+                    <div class="property-details">
+                        <span>5 Beds</span>
+                        <span>6 Baths</span>
+                        <span>6,800 sqft</span>
+                    </div>
+                    <button class="quick-view-btn" onclick="openModal(0)">VIEW DETAILS</button>
+                </div>
+            </div>
+
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=75&auto=format&fit=crop"
+                        alt="Luxury Estate" loading="lazy">
+                    <div class="property-tag">New Listing</div>
+                    <div class="property-overlay">
+                        <div class="property-features">
+                            <span>🌊 Private Beach</span>
+                            <span>⛵ Boat Dock</span>
+                            <span>🎬 Home Theater</span>
+                            <span>🧖 Spa Suite</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-info">
+                    <div class="property-price">$8,250,000</div>
+                    <h3 class="property-title">Oceanfront Estate</h3>
+                    <p class="property-location">Malibu, California</p>
+                    <p class="property-description">Wake up to breathtaking ocean views in this stunning beachfront
+                        estate. Featuring direct beach access, a resort-style pool, and impeccable craftsmanship
+                        throughout every room.</p>
+                    <div class="property-details">
+                        <span>7 Beds</span>
+                        <span>8 Baths</span>
+                        <span>9,500 sqft</span>
+                    </div>
+                    <button class="quick-view-btn" onclick="openModal(1)">VIEW DETAILS</button>
+                </div>
+            </div>
+
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=75&auto=format&fit=crop"
+                        alt="Modern Penthouse" loading="lazy">
+                    <div class="property-overlay">
+                        <div class="property-features">
+                            <span>🌃 Skyline Views</span>
+                            <span>🏢 Private Elevator</span>
+                            <span>🔥 Fireplaces</span>
+                            <span>🎹 Music Room</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-info">
+                    <div class="property-price">$6,950,000</div>
+                    <h3 class="property-title">Sky Penthouse</h3>
+                    <p class="property-location">Manhattan, New York</p>
+                    <p class="property-description">Experience urban luxury at its finest. This penthouse offers
+                        360-degree views of Manhattan's iconic skyline, with interiors by renowned designer Philippe
+                        Starck.</p>
+                    <div class="property-details">
+                        <span>4 Beds</span>
+                        <span>5 Baths</span>
+                        <span>5,200 sqft</span>
+                    </div>
+                    <button class="quick-view-btn" onclick="openModal(2)">VIEW DETAILS</button>
+                </div>
+            </div>
+
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=75&auto=format&fit=crop"
+                        alt="Luxury Villa" loading="lazy">
+                    <div class="property-tag">Exclusive</div>
+                    <div class="property-overlay">
+                        <div class="property-features">
+                            <span>🏛️ Grand Entrance</span>
+                            <span>🎨 Art Gallery</span>
+                            <span>📚 Library</span>
+                            <span>🚗 8-Car Garage</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-info">
+                    <div class="property-price">$12,500,000</div>
+                    <h3 class="property-title">Mediterranean Villa</h3>
+                    <p class="property-location">Santa Barbara, California</p>
+                    <p class="property-description">A timeless Mediterranean-inspired villa set on 3 acres of pristine
+                        grounds. Features include hand-painted ceilings, imported marble, and lush gardens designed by
+                        award-winning landscape architects.</p>
+                    <div class="property-details">
+                        <span>8 Beds</span>
+                        <span>10 Baths</span>
+                        <span>12,500 sqft</span>
+                    </div>
+                    <button class="quick-view-btn" onclick="openModal(3)">VIEW DETAILS</button>
+                </div>
+            </div>
+
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&q=75&auto=format&fit=crop"
+                        alt="Mountain Estate" loading="lazy">
+                    <div class="property-overlay">
+                        <div class="property-features">
+                            <span>⛰️ Mountain Views</span>
+                            <span>🎿 Ski Access</span>
+                            <span>🔥 Multiple Fireplaces</span>
+                            <span>🍽️ Chef's Kitchen</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-info">
+                    <div class="property-price">$9,800,000</div>
+                    <h3 class="property-title">Alpine Retreat</h3>
+                    <p class="property-location">Aspen, Colorado</p>
+                    <p class="property-description">A mountain sanctuary that combines rustic elegance with modern
+                        amenities. Floor-to-ceiling windows frame spectacular views, while multiple living spaces
+                        provide comfort for family and guests.</p>
+                    <div class="property-details">
+                        <span>6 Beds</span>
+                        <span>7 Baths</span>
+                        <span>8,200 sqft</span>
+                    </div>
+                    <button class="quick-view-btn" onclick="openModal(4)">VIEW DETAILS</button>
+                </div>
+            </div>
+
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=75&auto=format&fit=crop"
+                        alt="Urban Loft" loading="lazy">
+                    <div class="property-tag">Just Listed</div>
+                    <div class="property-overlay">
+                        <div class="property-features">
+                            <span>🏙️ City Center</span>
+                            <span>🎨 High Ceilings</span>
+                            <span>🌿 Rooftop Garden</span>
+                            <span>🏊 Lap Pool</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-info">
+                    <div class="property-price">$5,200,000</div>
+                    <h3 class="property-title">Industrial Chic Loft</h3>
+                    <p class="property-location">San Francisco, California</p>
+                    <p class="property-description">A converted warehouse transformed into a stunning modern residence.
+                        Exposed brick, steel beams, and soaring ceilings create an unforgettable living space in the
+                        heart of the city.</p>
+                    <div class="property-details">
+                        <span>3 Beds</span>
+                        <span>4 Baths</span>
+                        <span>4,500 sqft</span>
+                    </div>
+                    <button class="quick-view-btn" onclick="openModal(5)">VIEW DETAILS</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="section-header">
+            <p class="section-subtitle">Visual Journey</p>
+            <h2>Portfolio Gallery</h2>
+            <p class="section-description">A curated collection of architectural excellence, interior design mastery,
+                and breathtaking locations from our most prestigious listings.</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item large">
+                <img src="https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=700&q=75&auto=format&fit=crop"
+                    alt="Luxury Interior" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500&q=75&auto=format&fit=crop"
+                    alt="Modern Kitchen" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500&q=75&auto=format&fit=crop"
+                    alt="Elegant Bathroom" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=500&q=75&auto=format&fit=crop"
+                    alt="Outdoor Living" loading="lazy">
+            </div>
+            <div class="gallery-item large">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=75&auto=format&fit=crop"
+                    alt="Pool View" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=500&q=75&auto=format&fit=crop"
+                    alt="Master Suite" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=500&q=75&auto=format&fit=crop"
+                    alt="Living Room" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500&q=75&auto=format&fit=crop"
+                    alt="Dining Area" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="propertyModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <img class="modal-image" id="modalImage" src="" alt="Property">
+            <div class="modal-body">
+                <div class="property-price" id="modalPrice"></div>
+                <h2 id="modalTitle"></h2>
+                <p class="property-location" id="modalLocation"></p>
+                <div class="property-details" id="modalDetails"></div>
+                <p id="modalDescription1"></p>
+                <p id="modalDescription2"></p>
+                <p id="modalDescription3"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="section-header">
+            <p class="section-subtitle">Our Story</p>
+            <h2>Redefining Luxury Real Estate</h2>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>A Foundation Built on Excellence</h3>
+                <p>Founded in 1995, Elite Properties emerged from a singular vision: to transform the luxury real estate
+                    experience by prioritizing personal relationships, market expertise, and unwavering commitment to
+                    our clients' aspirations. What began as a boutique firm serving Beverly Hills has evolved into a
+                    internationally recognized leader in luxury property transactions.</p>
+                <p>Our success is not measured solely in transactions completed or records broken, but in the lasting
+                    relationships we forge and the trust our clients place in us during life's most significant
+                    decisions. We understand that behind every property search is a story—a family seeking their forever
+                    home, an entrepreneur looking for the perfect space to build their legacy, or individuals searching
+                    for a sanctuary that reflects their success.</p>
+                <div class="about-quote">
+                    "Luxury is not about price—it's about the perfect alignment of property, purpose, and passion. Our
+                    role is to discover that alignment for every client we serve."
+                </div>
+                <p>Our team comprises industry veterans with deep roots in their respective markets, each bringing
+                    unique insights and connections that provide our clients with unparalleled access to both on-market
+                    and off-market opportunities. We don't just sell properties; we curate experiences, facilitate
+                    dreams, and create lasting value.</p>
+                <p>With offices in the nation's most coveted luxury markets and partnerships with prestigious
+                    international brokerages, we offer truly global reach combined with intensely local expertise. This
+                    unique positioning allows us to serve clients whether they're seeking a coastal retreat in
+                    California, a Manhattan penthouse, or a villa in the French Riviera.</p>
+            </div>
+            <div class="about-image">
+                <div class="about-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=75&auto=format&fit=crop"
+                        alt="Luxury Interior" loading="lazy">
+                    <div class="about-accent"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy">
+        <div class="section-header">
+            <p class="section-subtitle">Our Values</p>
+            <h2>The Elite Difference</h2>
+            <p class="section-description" style="color: rgba(255, 255, 255, 0.8);">These principles guide every
+                decision we make and every relationship we build. They are not merely words on a page, but the
+                foundation of our reputation and the reason clients trust us with their most important real estate
+                decisions.</p>
+        </div>
+        <div class="philosophy-content">
+            <div class="philosophy-item">
+                <div class="philosophy-icon">🏛️</div>
+                <h4>Uncompromising Integrity</h4>
+                <p>We believe that trust is earned through consistent honesty, transparency, and ethical conduct. Our
+                    reputation is built on always putting our clients' interests first, even when it means advising
+                    against a transaction that might benefit us financially.</p>
+            </div>
+            <div class="philosophy-item">
+                <div class="philosophy-icon">🎯</div>
+                <h4>Market Mastery</h4>
+                <p>Deep market knowledge isn't optional—it's essential. Our team invests countless hours studying market
+                    trends, architectural styles, neighborhood dynamics, and investment potential to provide insights
+                    that give our clients a decisive advantage.</p>
+            </div>
+            <div class="philosophy-item">
+                <div class="philosophy-icon">🤝</div>
+                <h4>White Glove Service</h4>
+                <p>Luxury service means anticipating needs before they're expressed. From private viewings to
+                    coordinating complex international transactions, we handle every detail with discretion,
+                    professionalism, and meticulous attention to detail.</p>
+            </div>
+            <div class="philosophy-item">
+                <div class="philosophy-icon">🌟</div>
+                <h4>Exclusive Access</h4>
+                <p>Our extensive network and long-standing relationships provide clients with access to properties
+                    before they reach the public market, giving them opportunities others simply don't have. Many of our
+                    finest transactions never see a listing.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Luxury Features -->
+    <section class="luxury-features">
+        <div class="section-header">
+            <p class="section-subtitle">Why Choose Elite</p>
+            <h2>Comprehensive Services</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">🔍</span>
+                <h4>Property Search</h4>
+                <p>Leveraging advanced technology and personal connections, we identify properties that perfectly match
+                    your criteria, often before they're publicly available.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📊</span>
+                <h4>Market Analysis</h4>
+                <p>Comprehensive market reports and trend analysis ensure you make informed decisions backed by data,
+                    local expertise, and strategic insights.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">💼</span>
+                <h4>Investment Advisory</h4>
+                <p>Our team includes financial analysts who can help assess investment potential, tax implications, and
+                    long-term value appreciation strategies.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🔐</span>
+                <h4>Confidential Transactions</h4>
+                <p>Discretion is paramount. We facilitate private sales that protect your privacy while achieving
+                    optimal results.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🌍</span>
+                <h4>Global Network</h4>
+                <p>International partnerships provide seamless service whether you're buying locally or exploring
+                    opportunities worldwide.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">⚖️</span>
+                <h4>Negotiation Expertise</h4>
+                <p>Decades of experience in high-stakes negotiations ensure you achieve the best possible terms on every
+                    transaction.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="section-header">
+            <p class="section-subtitle">Client Stories</p>
+            <h2>Words From Our Clients</h2>
+        </div>
+        <div class="testimonial-slider">
+            <div class="testimonial active">
+                <p class="testimonial-text">Working with Elite Properties was an extraordinary experience from start to
+                    finish. Their professionalism, market knowledge, and genuine care for our needs made what could have
+                    been a stressful process remarkably smooth. They didn't just find us a house—they found us our dream
+                    home.</p>
+                <p class="testimonial-author">SARAH & MICHAEL ANDERSON</p>
+                <p class="testimonial-role">Tech Entrepreneurs, Beverly Hills</p>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">The level of service exceeded every expectation. From the initial
+                    consultation to closing, every interaction was marked by expertise, discretion, and genuine
+                    commitment to achieving the best outcome. They are truly the gold standard in luxury real estate.
+                </p>
+                <p class="testimonial-author">JAMES DAVIDSON</p>
+                <p class="testimonial-role">Investment Banker, Manhattan</p>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">Elite Properties represented us in a complex transaction involving multiple
+                    properties across two states. Their coordination, attention to detail, and negotiation skills were
+                    impeccable. We wouldn't trust anyone else with our real estate needs.</p>
+                <p class="testimonial-author">VICTORIA CHEN</p>
+                <p class="testimonial-role">Private Equity Executive, San Francisco</p>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">What sets Elite Properties apart is their genuine understanding of what
+                    luxury truly means. They took the time to understand not just what we wanted in a property, but who
+                    we are as a family. The result was a home that feels like it was designed specifically for us.</p>
+                <p class="testimonial-author">ROBERT & AMANDA FOSTER</p>
+                <p class="testimonial-role">Film Producers, Malibu</p>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">Their market insights and strategic guidance were invaluable. They helped us
+                    identify an off-market opportunity that has already appreciated significantly. Elite Properties
+                    isn't just a real estate firm—they're trusted advisors.</p>
+                <p class="testimonial-author">DAVID MARTINEZ</p>
+                <p class="testimonial-role">Hedge Fund Manager, Connecticut</p>
+            </div>
+            <div class="slider-dots">
+                <span class="dot active" onclick="showTestimonial(0)"></span>
+                <span class="dot" onclick="showTestimonial(1)"></span>
+                <span class="dot" onclick="showTestimonial(2)"></span>
+                <span class="dot" onclick="showTestimonial(3)"></span>
+                <span class="dot" onclick="showTestimonial(4)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Elite Properties</h3>
+                <p>Setting the standard for luxury real estate excellence since 1995. Our commitment to integrity,
+                    expertise, and exceptional service has made us the trusted choice for discerning clients worldwide.
+                </p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Instagram">IG</a>
+                    <a href="#" aria-label="LinkedIn">in</a>
+                    <a href="#" aria-label="Twitter">X</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Our Services</h3>
+                <a href="#">Residential Sales</a>
+                <a href="#">Investment Properties</a>
+                <a href="#">Estate Management</a>
+                <a href="#">Market Analysis</a>
+                <a href="#">International Properties</a>
+                <a href="#">Relocation Services</a>
+            </div>
+            <div class="footer-section">
+                <h3>Locations</h3>
+                <a href="#">Beverly Hills, CA</a>
+                <a href="#">Malibu, CA</a>
+                <a href="#">Manhattan, NY</a>
+                <a href="#">San Francisco, CA</a>
+                <a href="#">Aspen, CO</a>
+                <a href="#">Miami, FL</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Headquarters:<br>123 Luxury Avenue<br>Beverly Hills, CA 90210</p>
+                <p>Phone: (310) 555-0100</p>
+                <p>Email: info@eliteproperties.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Elite Properties. All rights reserved. | Privacy Policy | Terms of Service | Equal Housing
+                Opportunity</p>
+        </div>
+    </footer>
+
+    <script>
+        // Preload critical images for faster initial load
+        const criticalImages = [
+            'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=70&auto=format&fit=crop'
+        ];
+
+        criticalImages.forEach(src => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'image';
+            link.href = src;
+            document.head.appendChild(link);
+        });
+
+        // Lazy loading with Intersection Observer for better performance
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px 0px',
+            threshold: 0.01
+        });
+
+        // Navbar scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('.navbar');
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            lastScroll = currentScroll;
+        }, { passive: true });
+
+        // Mobile menu toggle with animation
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const body = document.body;
+
+        menuToggle.addEventListener('click', function () {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+
+            // Prevent body scroll when menu is open on mobile
+            if (navLinks.classList.contains('active')) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = 'auto';
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function () {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+                body.style.overflow = 'auto';
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+                body.style.overflow = 'auto';
+            }
+        });
+
+        // Parallax effect on hero (disabled on mobile for performance)
+        if (window.innerWidth > 768) {
+            window.addEventListener('scroll', function () {
+                const heroScroll = window.pageYOffset;
+                const heroBg = document.querySelector('.hero-bg');
+                if (heroBg && heroScroll < window.innerHeight) {
+                    heroBg.style.transform = `translateY(${heroScroll * 0.5}px)`;
+                }
+            }, { passive: true });
+        }
+
+        // Intersection Observer for reveal animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.stat-item, .section-header, .property-card, .about-text, .about-image, .testimonial-slider, .video-container, .featured-text-content, .gallery-item, .philosophy-item, .feature-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation for stats
+        function animateCounter(element) {
+            const target = parseFloat(element.getAttribute('data-target'));
+            const isDecimal = target % 1 !== 0;
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    element.textContent = isDecimal ? current.toFixed(1) : Math.floor(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = isDecimal ? target.toFixed(1) : target;
+                }
+            };
+
+            updateCounter();
+        }
+
+        const statsObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target.querySelector('.stat-number');
+                    if (counter && !counter.classList.contains('counted')) {
+                        counter.classList.add('counted');
+                        animateCounter(counter);
+                    }
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-item').forEach(el => {
+            statsObserver.observe(el);
+        });
+
+        // Modal functionality
+        const modalData = [
+            {
+                image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&q=75&auto=format&fit=crop',
+                price: '$4,750,000',
+                title: 'Contemporary Masterpiece',
+                location: 'Beverly Hills, California',
+                details: '<span>5 Beds</span><span>6 Baths</span><span>6,800 sqft</span>',
+                desc1: 'This architectural masterpiece represents the pinnacle of contemporary design. Situated on a prime lot in the heart of Beverly Hills, the residence features floor-to-ceiling glass walls that create a seamless connection between the meticulously designed interior spaces and the resort-like outdoor environment.',
+                desc2: 'The main level showcases an open-concept design with 14-foot ceilings, custom Italian cabinetry, and premium Miele appliances. The primary suite occupies the entire second floor and includes dual bathrooms, custom walk-in closets, and a private terrace with city views.',
+                desc3: 'The outdoor space is an entertainer\'s paradise, featuring an infinity-edge pool, built-in BBQ area, fire pit, and mature landscaping that provides both beauty and privacy. Additional amenities include a state-of-the-art home theater, temperature-controlled wine cellar, and a home gym with spa facilities.'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=75&auto=format&fit=crop',
+                price: '$8,250,000',
+                title: 'Oceanfront Estate',
+                location: 'Malibu, California',
+                details: '<span>7 Beds</span><span>8 Baths</span><span>9,500 sqft</span>',
+                desc1: 'Experience the ultimate in coastal luxury with this stunning oceanfront estate. Located on one of Malibu\'s most prestigious beaches, this property offers unobstructed views of the Pacific Ocean and direct access to pristine sandy beaches.',
+                desc2: 'The residence features a grand two-story living room with floor-to-ceiling windows, a gourmet kitchen with professional-grade appliances, and multiple entertainment areas both indoors and out. The primary suite offers a private balcony, spa-like bathroom, and custom closet system.',
+                desc3: 'Outdoor amenities include a resort-style pool and spa, multiple entertaining terraces, outdoor kitchen, and a private boat dock. The property also features smart home technology, solar panels, and a separate guest house with two bedrooms.'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=75&auto=format&fit=crop',
+                price: '$6,950,000',
+                title: 'Sky Penthouse',
+                location: 'Manhattan, New York',
+                details: '<span>4 Beds</span><span>5 Baths</span><span>5,200 sqft</span>',
+                desc1: 'This extraordinary penthouse occupies the top two floors of one of Manhattan\'s most prestigious buildings. Designed by Philippe Starck, the residence offers 360-degree views of the city skyline, including Central Park, the Empire State Building, and the Hudson River.',
+                desc2: 'The interior features 12-foot ceilings, custom millwork throughout, and a stunning floating staircase connecting the two levels. The chef\'s kitchen includes top-of-the-line Gaggenau appliances, while the primary suite offers a private library, dual bathrooms, and a spacious dressing room.',
+                desc3: 'Additional highlights include a formal dining room that seats 14, a media room with state-of-the-art acoustics, and four wood-burning fireplaces. The building offers white-glove service, a fitness center, and a private rooftop terrace exclusive to penthouse residents.'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=75&auto=format&fit=crop',
+                price: '$12,500,000',
+                title: 'Mediterranean Villa',
+                location: 'Santa Barbara, California',
+                details: '<span>8 Beds</span><span>10 Baths</span><span>12,500 sqft</span>',
+                desc1: 'This magnificent Mediterranean estate sits on three acres of meticulously landscaped grounds in one of Santa Barbara\'s most exclusive enclaves. The property combines old-world charm with modern amenities, featuring hand-painted ceilings, imported Italian marble, and custom ironwork throughout.',
+                desc2: 'The main residence includes a grand two-story entry, formal living and dining rooms, a gourmet kitchen with butler\'s pantry, and a luxurious primary suite with sitting area, dual bathrooms, and private terrace. Multiple guest suites provide comfort and privacy for visitors.',
+                desc3: 'The grounds feature award-winning gardens designed by renowned landscape architect Nancy Power, a pool house with full kitchen and changing rooms, tennis court, and a separate four-car garage with staff quarters. Additional amenities include a wine cellar, home theater, and elevator service to all floors.'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=900&q=75&auto=format&fit=crop',
+                price: '$9,800,000',
+                title: 'Alpine Retreat',
+                location: 'Aspen, Colorado',
+                details: '<span>6 Beds</span><span>7 Baths</span><span>8,200 sqft</span>',
+                desc1: 'This spectacular mountain estate offers the perfect blend of rustic elegance and contemporary luxury. Situated on five acres with ski-in/ski-out access to Aspen Mountain, the property provides breathtaking views of the surrounding peaks and valleys.',
+                desc2: 'The great room features soaring 30-foot ceilings, massive stone fireplace, and walls of windows that frame the mountain vistas. The gourmet kitchen includes professional appliances, custom cabinetry, and a large island perfect for casual dining. The primary suite occupies an entire wing with fireplace, sitting area, and luxurious bathroom.',
+                desc3: 'Additional features include a game room with bar, home theater, fitness room with sauna, and heated garage for six vehicles. The outdoor spaces include multiple entertaining terraces, hot tub, fire pit, and beautifully landscaped grounds that showcase the natural mountain environment.'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=900&q=75&auto=format&fit=crop',
+                price: '$5,200,000',
+                title: 'Industrial Chic Loft',
+                location: 'San Francisco, California',
+                details: '<span>3 Beds</span><span>4 Baths</span><span>4,500 sqft</span>',
+                desc1: 'This extraordinary loft represents the pinnacle of urban living in San Francisco. Converted from a historic warehouse, the residence combines original architectural details including exposed brick, steel beams, and 18-foot ceilings with contemporary finishes and state-of-the-art technology.',
+                desc2: 'The open floor plan provides flexible living spaces perfect for both intimate gatherings and large-scale entertaining. The chef\'s kitchen features custom cabinetry, premium appliances, and a large island. Floor-to-ceiling windows flood the space with natural light and provide city views.',
+                desc3: 'The primary suite includes a spa-like bathroom with soaking tub, separate shower, and double vanities. Additional highlights include a private rooftop deck with city views, secure parking for three vehicles, and storage. The building offers 24-hour security and proximity to the city\'s finest dining and cultural venues.'
+            }
+        ];
+
+        function openModal(index) {
+            const modal = document.getElementById('propertyModal');
+            const data = modalData[index];
+
+            document.getElementById('modalImage').src = data.image;
+            document.getElementById('modalPrice').textContent = data.price;
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalLocation').textContent = data.location;
+            document.getElementById('modalDetails').innerHTML = data.details;
+            document.getElementById('modalDescription1').textContent = data.desc1;
+            document.getElementById('modalDescription2').textContent = data.desc2;
+            document.getElementById('modalDescription3').textContent = data.desc3;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('propertyModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on outside click
+        document.getElementById('propertyModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Escape key closes modal
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Testimonial slider
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial');
+        const dots = document.querySelectorAll('.dot');
+
+        function showTestimonial(index) {
+            testimonials[currentTestimonial].classList.remove('active');
+            dots[currentTestimonial].classList.remove('active');
+
+            currentTestimonial = index;
+
+            testimonials[currentTestimonial].classList.add('active');
+            dots[currentTestimonial].classList.add('active');
+        }
+
+        // Auto-rotate testimonials
+        let testimonialInterval = setInterval(() => {
+            let next = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(next);
+        }, 6000);
+
+        // Pause auto-rotation when user interacts
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                clearInterval(testimonialInterval);
+                showTestimonial(index);
+                // Restart auto-rotation after user interaction
+                testimonialInterval = setInterval(() => {
+                    let next = (currentTestimonial + 1) % testimonials.length;
+                    showTestimonial(next);
+                }, 6000);
+            });
+        });
+
+        // Stagger animation for property cards
+        document.querySelectorAll('.property-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.15}s`;
+        });
+
+        // Stagger animation for gallery items
+        document.querySelectorAll('.gallery-item').forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Stagger animation for feature cards
+        document.querySelectorAll('.feature-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Stagger animation for philosophy items
+        document.querySelectorAll('.philosophy-item').forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.15}s`;
+        });
+
+        // Performance optimization: Reduce animations on low-end devices
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('*').forEach(el => {
+                el.style.animation = 'none';
+                el.style.transition = 'none';
+            });
+        }
+
+        // Touch gesture support for testimonial slider on mobile
+        if ('ontouchstart' in window) {
+            let touchStartX = 0;
+            let touchEndX = 0;
+            const slider = document.querySelector('.testimonial-slider');
+
+            slider.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            slider.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+
+            function handleSwipe() {
+                if (touchEndX < touchStartX - 50) {
+                    // Swipe left - next testimonial
+                    let next = (currentTestimonial + 1) % testimonials.length;
+                    showTestimonial(next);
+                }
+                if (touchEndX > touchStartX + 50) {
+                    // Swipe right - previous testimonial
+                    let prev = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+                    showTestimonial(prev);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
