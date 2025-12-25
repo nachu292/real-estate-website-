@@ -2019,10 +2019,13 @@
         <div class="video-container">
             <div class="video-wrapper">
                 <!-- Click-to-load placeholder: replaces itself with the iframe on interaction -->
-                <div class="video-placeholder" role="button" tabindex="0"
-                    aria-label="Play video: Luxury Home Tour: 15 Hillside Avenue" data-video-id="VB9EOJrv6KI">
-                    <img class="video-thumb" src="https://i.ytimg.com/vi/VB9EOJrv6KI/hqdefault.jpg"
-                        alt="Luxury Home Tour: 15 Hillside Avenue thumbnail">
+                <!-- Click-to-load placeholder for a self-hosted royalty-free clip -->
+                <div class="video-placeholder" role="button" tabindex="0" aria-label="Play video: Luxury interior clip"
+                    data-video-src="https://videos.pexels.com/video-files/5744424/5744424-uhd_2560_1440_30fps.mp4"
+                    data-video-page="https://www.pexels.com/video/modern-house-interior-5744424/">
+                    <img class="video-thumb"
+                        src="https://images.pexels.com/photos/3701434/pexels-photo-3701434.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                        alt="Luxury interior thumbnail">
                     <button class="video-play" aria-hidden="true" tabindex="-1">
                         <!-- Play icon -->
                         <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -2033,11 +2036,12 @@
                     </button>
                 </div>
 
-                <!-- Fallback: clickable thumbnail that opens on YouTube (shown if JS disabled) -->
+                <!-- Fallback: clickable thumbnail that opens on Pexels (shown if JS disabled) -->
                 <noscript>
-                    <a href="https://youtu.be/VB9EOJrv6KI" target="_blank" rel="noopener noreferrer">
-                        <img src="https://i.ytimg.com/vi/VB9EOJrv6KI/hqdefault.jpg"
-                            alt="Watch Luxury Home Tour: 15 Hillside Avenue on YouTube"
+                    <a href="https://www.pexels.com/video/modern-house-interior-5744424/" target="_blank"
+                        rel="noopener noreferrer">
+                        <img src="https://images.pexels.com/photos/3701434/pexels-photo-3701434.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                            alt="Watch Luxury interior clip on Pexels"
                             style="max-width:100%;height:auto;border-radius:4px;">
                     </a>
                 </noscript>
@@ -2049,14 +2053,52 @@
                 function init() {
                     var modal = document.getElementById('video-modal');
                     if (!modal) return;
-                    var iframe = modal.querySelector('iframe');
+                    var contentInner = modal.querySelector('.modal-content-inner');
                     var openLink = modal.querySelector('.open-youtube');
                     var closeBtn = modal.querySelector('.modal-close');
 
-                    function openVideoModal(id) {
-                        if (!id) return;
-                        iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0&autoplay=1';
-                        openLink.href = 'https://youtu.be/' + id;
+                    function openVideoModal(idOrSrc, pageUrl) {
+                        if (!idOrSrc) return;
+                        // clear any existing content
+                        contentInner.innerHTML = '';
+
+                        if (/^https?:\/\//i.test(idOrSrc)) {
+                            // self-hosted video file
+                            var video = document.createElement('video');
+                            video.setAttribute('src', idOrSrc);
+                            video.setAttribute('controls', '');
+                            video.setAttribute('playsinline', '');
+                            video.setAttribute('preload', 'metadata');
+                            video.style.position = 'absolute';
+                            video.style.top = '0';
+                            video.style.left = '0';
+                            video.style.width = '100%';
+                            video.style.height = '100%';
+                            contentInner.appendChild(video);
+                            // try autoplay softly
+                            video.muted = true;
+                            var p = video.play();
+                            if (p && p.catch) p.catch(function () { });
+
+                            openLink.href = pageUrl || idOrSrc;
+                        } else {
+                            // treat as YouTube ID (fallback)
+                            var iframeEl = document.createElement('iframe');
+                            iframeEl.setAttribute('src', 'https://www.youtube-nocookie.com/embed/' + idOrSrc + '?rel=0&autoplay=1');
+                            iframeEl.setAttribute('frameborder', '0');
+                            iframeEl.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+                            iframeEl.setAttribute('allowfullscreen', '');
+                            iframeEl.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+                            iframeEl.style.position = 'absolute';
+                            iframeEl.style.top = '0';
+                            iframeEl.style.left = '0';
+                            iframeEl.style.width = '100%';
+                            iframeEl.style.height = '100%';
+                            contentInner.appendChild(iframeEl);
+
+                            openLink.href = 'https://youtu.be/' + idOrSrc;
+                        }
+
                         modal.style.display = 'flex';
                         modal.setAttribute('aria-hidden', 'false');
                         closeBtn.focus();
@@ -2064,7 +2106,12 @@
                     }
 
                     function closeVideoModal() {
-                        iframe.src = '';
+                        // stop and remove any media inside
+                        var video = contentInner.querySelector('video');
+                        if (video) {
+                            try { video.pause(); video.removeAttribute('src'); } catch (e) { }
+                        }
+                        contentInner.innerHTML = '';
                         modal.style.display = 'none';
                         modal.setAttribute('aria-hidden', 'true');
                         document.body.style.overflow = '';
@@ -2072,7 +2119,7 @@
 
                     document.addEventListener('click', function (e) {
                         var p = e.target.closest && e.target.closest('.video-placeholder');
-                        if (p) { e.preventDefault(); openVideoModal(p.dataset.videoId); return; }
+                        if (p) { e.preventDefault(); var src = p.dataset.videoSrc || p.dataset.videoId; openVideoModal(src, p.dataset.videoPage); return; }
 
                         if (e.target.closest && e.target.closest('.modal-close')) { e.preventDefault(); closeVideoModal(); }
                         if (e.target === modal) { closeVideoModal(); }
@@ -2081,7 +2128,8 @@
                     document.addEventListener('keydown', function (e) {
                         if ((e.key === 'Enter' || e.key === ' ') && document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('video-placeholder')) {
                             e.preventDefault();
-                            openVideoModal(document.activeElement.dataset.videoId);
+                            var src = document.activeElement.dataset.videoSrc || document.activeElement.dataset.videoId;
+                            openVideoModal(src, document.activeElement.dataset.videoPage);
                         }
                         if (e.key === 'Escape' && modal.style.display === 'flex') {
                             closeVideoModal();
@@ -2104,9 +2152,7 @@
                 <button class="modal-close" aria-label="Close video">×</button>
                 <h3 id="video-modal-title" class="sr-only">Video player</h3>
                 <div class="modal-content">
-                    <iframe src="" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Video player"></iframe>
+                    <div class="modal-content-inner" aria-live="polite"></div>
                 </div>
                 <div class="modal-actions">
                     <a class="open-youtube" href="#" target="_blank" rel="noopener noreferrer">Open on YouTube</a>
