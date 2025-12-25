@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +37,12 @@
         }
 
         /* Typography */
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-weight: 400;
             letter-spacing: 0.05em;
         }
@@ -191,7 +197,7 @@
             width: 100%;
             height: 120%;
             background: linear-gradient(135deg, rgba(43, 43, 43, 0.5) 0%, rgba(43, 43, 43, 0.3) 100%),
-                        url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=70&auto=format&fit=crop') center/cover;
+                url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=70&auto=format&fit=crop') center/cover;
             transform: translateY(0);
             transition: transform 0.5s ease-out;
         }
@@ -299,8 +305,15 @@
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
         }
 
         /* Stats Section */
@@ -404,6 +417,135 @@
             left: 0;
             width: 100%;
             height: 100%;
+        }
+
+        /* Click-to-load placeholder for videos */
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #000;
+            border-radius: 4px;
+        }
+
+        .video-placeholder .video-thumb {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.5);
+        }
+
+        .video-placeholder .video-play {
+            position: relative;
+            z-index: 2;
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-placeholder .video-play svg {
+            width: 28px;
+            height: 28px;
+            fill: #000;
+            margin-left: 4px;
+        }
+
+        .video-placeholder:focus {
+            outline: 3px solid rgba(255, 255, 255, 0.6);
+            outline-offset: -6px;
+        }
+
+        /* Modal for external video playback */
+        .video-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1200;
+            padding: 2rem;
+        }
+
+        .video-modal {
+            width: 100%;
+            max-width: 1100px;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .video-modal .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .video-modal .modal-content {
+            position: relative;
+            padding-top: 56.25%;
+            background: #000;
+        }
+
+        .video-modal .modal-content iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-modal .modal-actions {
+            padding: 1rem 1.25rem;
+            text-align: right;
+            background: #f9f9f9;
+        }
+
+        .video-modal .open-youtube {
+            display: inline-block;
+            padding: 0.5rem 0.9rem;
+            background: var(--primary, #111827);
+            color: #fff;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
         }
 
         /* Featured Text Section */
@@ -1148,6 +1290,7 @@
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
@@ -1191,6 +1334,7 @@
         }
 
         @media (max-width: 768px) {
+
             /* Mobile-optimized navigation */
             .navbar {
                 padding: 1.2rem 5%;
@@ -1627,6 +1771,7 @@
         }
 
         @media (max-width: 480px) {
+
             /* Extra small phones */
             .navbar {
                 padding: 1rem 4%;
@@ -1742,6 +1887,7 @@
 
         /* Touch-friendly enhancements for mobile */
         @media (max-width: 768px) {
+
             /* Larger tap targets */
             .cta-button,
             .quick-view-btn,
@@ -1769,7 +1915,9 @@
             }
 
             /* Prevent zoom on input focus */
-            input, textarea, select {
+            input,
+            textarea,
+            select {
                 font-size: 16px;
             }
 
@@ -1786,6 +1934,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar">
@@ -1809,7 +1958,8 @@
         <div class="hero-content">
             <p class="hero-subtitle">Curated Excellence</p>
             <h1>The Art of Sophisticated Living</h1>
-            <p class="hero-description">Where architectural brilliance meets unparalleled luxury. Discover properties that transcend expectation and redefine the essence of home.</p>
+            <p class="hero-description">Where architectural brilliance meets unparalleled luxury. Discover properties
+                that transcend expectation and redefine the essence of home.</p>
             <a href="#portfolio" class="cta-button">EXPLORE COLLECTION</a>
         </div>
         <div class="scroll-indicator"></div>
@@ -1843,9 +1993,16 @@
     <section class="featured-text">
         <div class="featured-text-content">
             <h2>A Legacy of Excellence</h2>
-            <p class="large-text">For nearly three decades, we have been privileged to serve the world's most discerning clientele, matching exceptional individuals with extraordinary properties that reflect their vision, values, and aspirations.</p>
-            <p class="large-text">Our approach is rooted in the belief that luxury real estate is not merely about square footage or amenities—it's about discovering spaces that resonate with one's soul, properties that tell a story, and homes that become the backdrop for life's most precious moments.</p>
-            <p class="large-text">We understand that acquiring a luxury property is a profound decision, one that represents not just an investment in real estate, but an investment in lifestyle, legacy, and the future. This understanding guides every interaction, every recommendation, and every relationship we cultivate.</p>
+            <p class="large-text">For nearly three decades, we have been privileged to serve the world's most discerning
+                clientele, matching exceptional individuals with extraordinary properties that reflect their vision,
+                values, and aspirations.</p>
+            <p class="large-text">Our approach is rooted in the belief that luxury real estate is not merely about
+                square footage or amenities—it's about discovering spaces that resonate with one's soul, properties that
+                tell a story, and homes that become the backdrop for life's most precious moments.</p>
+            <p class="large-text">We understand that acquiring a luxury property is a profound decision, one that
+                represents not just an investment in real estate, but an investment in lifestyle, legacy, and the
+                future. This understanding guides every interaction, every recommendation, and every relationship we
+                cultivate.</p>
             <p class="signature">— Marcus Wellington</p>
         </div>
     </section>
@@ -1855,11 +2012,105 @@
         <div class="section-header">
             <p class="section-subtitle">Experience Excellence</p>
             <h2>A Journey Through Luxury</h2>
-            <p class="section-description">Immerse yourself in the world of exceptional properties. This curated showcase presents the finest architectural achievements and interior masterpieces from our exclusive portfolio.</p>
+            <p class="section-description">Immerse yourself in the world of exceptional properties. This curated
+                showcase presents the finest architectural achievements and interior masterpieces from our exclusive
+                portfolio.</p>
         </div>
         <div class="video-container">
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/jgKCDJTH9S8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <!-- Click-to-load placeholder: replaces itself with the iframe on interaction -->
+                <div class="video-placeholder" role="button" tabindex="0"
+                    aria-label="Play video: Luxury Home Tour: 15 Hillside Avenue" data-video-id="VB9EOJrv6KI">
+                    <img class="video-thumb" src="https://i.ytimg.com/vi/VB9EOJrv6KI/hqdefault.jpg"
+                        alt="Luxury Home Tour: 15 Hillside Avenue thumbnail">
+                    <button class="video-play" aria-hidden="true" tabindex="-1">
+                        <!-- Play icon -->
+                        <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path
+                                d="M66.52 7.02a4.07 4.07 0 0 0-5.2-1.35C55.85 9.02 34 24.75 34 24.75S12.15 40.48 6.68 38.08A4.07 4.07 0 0 0 1.47 39.43 3.91 3.91 0 0 0 0 43.03v1.86A3.91 3.91 0 0 0 1.47 48 3.78 3.78 0 0 0 4.25 49c3.9-.7 24-10.2 29.75-15.83C43.53 29.34 65 14.89 66.52 7.02Z" />
+                            <path d="M26 16.5v15l13-7.5-13-7.5z" fill="#f00" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Fallback: clickable thumbnail that opens on YouTube (shown if JS disabled) -->
+                <noscript>
+                    <a href="https://youtu.be/VB9EOJrv6KI" target="_blank" rel="noopener noreferrer">
+                        <img src="https://i.ytimg.com/vi/VB9EOJrv6KI/hqdefault.jpg"
+                            alt="Watch Luxury Home Tour: 15 Hillside Avenue on YouTube"
+                            style="max-width:100%;height:auto;border-radius:4px;">
+                    </a>
+                </noscript>
+            </div>
+        </div>
+
+        <script>
+            (function () {
+                function init() {
+                    var modal = document.getElementById('video-modal');
+                    if (!modal) return;
+                    var iframe = modal.querySelector('iframe');
+                    var openLink = modal.querySelector('.open-youtube');
+                    var closeBtn = modal.querySelector('.modal-close');
+
+                    function openVideoModal(id) {
+                        if (!id) return;
+                        iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0&autoplay=1';
+                        openLink.href = 'https://youtu.be/' + id;
+                        modal.style.display = 'flex';
+                        modal.setAttribute('aria-hidden', 'false');
+                        closeBtn.focus();
+                        document.body.style.overflow = 'hidden';
+                    }
+
+                    function closeVideoModal() {
+                        iframe.src = '';
+                        modal.style.display = 'none';
+                        modal.setAttribute('aria-hidden', 'true');
+                        document.body.style.overflow = '';
+                    }
+
+                    document.addEventListener('click', function (e) {
+                        var p = e.target.closest && e.target.closest('.video-placeholder');
+                        if (p) { e.preventDefault(); openVideoModal(p.dataset.videoId); return; }
+
+                        if (e.target.closest && e.target.closest('.modal-close')) { e.preventDefault(); closeVideoModal(); }
+                        if (e.target === modal) { closeVideoModal(); }
+                    });
+
+                    document.addEventListener('keydown', function (e) {
+                        if ((e.key === 'Enter' || e.key === ' ') && document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('video-placeholder')) {
+                            e.preventDefault();
+                            openVideoModal(document.activeElement.dataset.videoId);
+                        }
+                        if (e.key === 'Escape' && modal.style.display === 'flex') {
+                            closeVideoModal();
+                        }
+                    });
+                }
+
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', init);
+                } else {
+                    init();
+                }
+            })();
+        </script>
+
+        <!-- Modal: opens YouTube watch/embed in a dialog with fallback link -->
+        <div id="video-modal" class="video-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true"
+            aria-labelledby="video-modal-title">
+            <div class="video-modal" role="document">
+                <button class="modal-close" aria-label="Close video">×</button>
+                <h3 id="video-modal-title" class="sr-only">Video player</h3>
+                <div class="modal-content">
+                    <iframe src="" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Video player"></iframe>
+                </div>
+                <div class="modal-actions">
+                    <a class="open-youtube" href="#" target="_blank" rel="noopener noreferrer">Open on YouTube</a>
+                </div>
             </div>
         </div>
     </section>
@@ -1869,12 +2120,15 @@
         <div class="section-header">
             <p class="section-subtitle">Featured Collection</p>
             <h2>Exceptional Properties</h2>
-            <p class="section-description">Each property in our portfolio has been meticulously selected for its architectural significance, prime location, and exceptional quality. These are not merely houses—they are masterpieces of design, comfort, and sophistication.</p>
+            <p class="section-description">Each property in our portfolio has been meticulously selected for its
+                architectural significance, prime location, and exceptional quality. These are not merely houses—they
+                are masterpieces of design, comfort, and sophistication.</p>
         </div>
         <div class="portfolio-grid">
             <div class="property-card">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=75&auto=format&fit=crop" alt="Modern Villa" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=75&auto=format&fit=crop"
+                        alt="Modern Villa" loading="lazy">
                     <div class="property-tag">Featured</div>
                     <div class="property-overlay">
                         <div class="property-features">
@@ -1889,7 +2143,9 @@
                     <div class="property-price">$4,750,000</div>
                     <h3 class="property-title">Contemporary Masterpiece</h3>
                     <p class="property-location">Beverly Hills, California</p>
-                    <p class="property-description">An architectural triumph that seamlessly blends indoor and outdoor living. This contemporary estate features floor-to-ceiling glass walls, state-of-the-art smart home technology, and panoramic city views.</p>
+                    <p class="property-description">An architectural triumph that seamlessly blends indoor and outdoor
+                        living. This contemporary estate features floor-to-ceiling glass walls, state-of-the-art smart
+                        home technology, and panoramic city views.</p>
                     <div class="property-details">
                         <span>5 Beds</span>
                         <span>6 Baths</span>
@@ -1901,7 +2157,8 @@
 
             <div class="property-card">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=75&auto=format&fit=crop" alt="Luxury Estate" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=75&auto=format&fit=crop"
+                        alt="Luxury Estate" loading="lazy">
                     <div class="property-tag">New Listing</div>
                     <div class="property-overlay">
                         <div class="property-features">
@@ -1916,7 +2173,9 @@
                     <div class="property-price">$8,250,000</div>
                     <h3 class="property-title">Oceanfront Estate</h3>
                     <p class="property-location">Malibu, California</p>
-                    <p class="property-description">Wake up to breathtaking ocean views in this stunning beachfront estate. Featuring direct beach access, a resort-style pool, and impeccable craftsmanship throughout every room.</p>
+                    <p class="property-description">Wake up to breathtaking ocean views in this stunning beachfront
+                        estate. Featuring direct beach access, a resort-style pool, and impeccable craftsmanship
+                        throughout every room.</p>
                     <div class="property-details">
                         <span>7 Beds</span>
                         <span>8 Baths</span>
@@ -1928,7 +2187,8 @@
 
             <div class="property-card">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=75&auto=format&fit=crop" alt="Modern Penthouse" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=75&auto=format&fit=crop"
+                        alt="Modern Penthouse" loading="lazy">
                     <div class="property-overlay">
                         <div class="property-features">
                             <span>🌃 Skyline Views</span>
@@ -1942,7 +2202,9 @@
                     <div class="property-price">$6,950,000</div>
                     <h3 class="property-title">Sky Penthouse</h3>
                     <p class="property-location">Manhattan, New York</p>
-                    <p class="property-description">Experience urban luxury at its finest. This penthouse offers 360-degree views of Manhattan's iconic skyline, with interiors by renowned designer Philippe Starck.</p>
+                    <p class="property-description">Experience urban luxury at its finest. This penthouse offers
+                        360-degree views of Manhattan's iconic skyline, with interiors by renowned designer Philippe
+                        Starck.</p>
                     <div class="property-details">
                         <span>4 Beds</span>
                         <span>5 Baths</span>
@@ -1954,7 +2216,8 @@
 
             <div class="property-card">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=75&auto=format&fit=crop" alt="Luxury Villa" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=75&auto=format&fit=crop"
+                        alt="Luxury Villa" loading="lazy">
                     <div class="property-tag">Exclusive</div>
                     <div class="property-overlay">
                         <div class="property-features">
@@ -1969,7 +2232,9 @@
                     <div class="property-price">$12,500,000</div>
                     <h3 class="property-title">Mediterranean Villa</h3>
                     <p class="property-location">Santa Barbara, California</p>
-                    <p class="property-description">A timeless Mediterranean-inspired villa set on 3 acres of pristine grounds. Features include hand-painted ceilings, imported marble, and lush gardens designed by award-winning landscape architects.</p>
+                    <p class="property-description">A timeless Mediterranean-inspired villa set on 3 acres of pristine
+                        grounds. Features include hand-painted ceilings, imported marble, and lush gardens designed by
+                        award-winning landscape architects.</p>
                     <div class="property-details">
                         <span>8 Beds</span>
                         <span>10 Baths</span>
@@ -1981,7 +2246,8 @@
 
             <div class="property-card">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&q=75&auto=format&fit=crop" alt="Mountain Estate" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&q=75&auto=format&fit=crop"
+                        alt="Mountain Estate" loading="lazy">
                     <div class="property-overlay">
                         <div class="property-features">
                             <span>⛰️ Mountain Views</span>
@@ -1995,7 +2261,9 @@
                     <div class="property-price">$9,800,000</div>
                     <h3 class="property-title">Alpine Retreat</h3>
                     <p class="property-location">Aspen, Colorado</p>
-                    <p class="property-description">A mountain sanctuary that combines rustic elegance with modern amenities. Floor-to-ceiling windows frame spectacular views, while multiple living spaces provide comfort for family and guests.</p>
+                    <p class="property-description">A mountain sanctuary that combines rustic elegance with modern
+                        amenities. Floor-to-ceiling windows frame spectacular views, while multiple living spaces
+                        provide comfort for family and guests.</p>
                     <div class="property-details">
                         <span>6 Beds</span>
                         <span>7 Baths</span>
@@ -2007,7 +2275,8 @@
 
             <div class="property-card">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=75&auto=format&fit=crop" alt="Urban Loft" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=75&auto=format&fit=crop"
+                        alt="Urban Loft" loading="lazy">
                     <div class="property-tag">Just Listed</div>
                     <div class="property-overlay">
                         <div class="property-features">
@@ -2022,7 +2291,9 @@
                     <div class="property-price">$5,200,000</div>
                     <h3 class="property-title">Industrial Chic Loft</h3>
                     <p class="property-location">San Francisco, California</p>
-                    <p class="property-description">A converted warehouse transformed into a stunning modern residence. Exposed brick, steel beams, and soaring ceilings create an unforgettable living space in the heart of the city.</p>
+                    <p class="property-description">A converted warehouse transformed into a stunning modern residence.
+                        Exposed brick, steel beams, and soaring ceilings create an unforgettable living space in the
+                        heart of the city.</p>
                     <div class="property-details">
                         <span>3 Beds</span>
                         <span>4 Baths</span>
@@ -2039,32 +2310,41 @@
         <div class="section-header">
             <p class="section-subtitle">Visual Journey</p>
             <h2>Portfolio Gallery</h2>
-            <p class="section-description">A curated collection of architectural excellence, interior design mastery, and breathtaking locations from our most prestigious listings.</p>
+            <p class="section-description">A curated collection of architectural excellence, interior design mastery,
+                and breathtaking locations from our most prestigious listings.</p>
         </div>
         <div class="gallery-grid">
             <div class="gallery-item large">
-                <img src="https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=700&q=75&auto=format&fit=crop" alt="Luxury Interior" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=700&q=75&auto=format&fit=crop"
+                    alt="Luxury Interior" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500&q=75&auto=format&fit=crop" alt="Modern Kitchen" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500&q=75&auto=format&fit=crop"
+                    alt="Modern Kitchen" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500&q=75&auto=format&fit=crop" alt="Elegant Bathroom" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500&q=75&auto=format&fit=crop"
+                    alt="Elegant Bathroom" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=500&q=75&auto=format&fit=crop" alt="Outdoor Living" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=500&q=75&auto=format&fit=crop"
+                    alt="Outdoor Living" loading="lazy">
             </div>
             <div class="gallery-item large">
-                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=75&auto=format&fit=crop" alt="Pool View" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=75&auto=format&fit=crop"
+                    alt="Pool View" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=500&q=75&auto=format&fit=crop" alt="Master Suite" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=500&q=75&auto=format&fit=crop"
+                    alt="Master Suite" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=500&q=75&auto=format&fit=crop" alt="Living Room" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=500&q=75&auto=format&fit=crop"
+                    alt="Living Room" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500&q=75&auto=format&fit=crop" alt="Dining Area" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500&q=75&auto=format&fit=crop"
+                    alt="Dining Area" loading="lazy">
             </div>
         </div>
     </section>
@@ -2095,17 +2375,32 @@
         <div class="about-content">
             <div class="about-text">
                 <h3>A Foundation Built on Excellence</h3>
-                <p>Founded in 1995, Elite Properties emerged from a singular vision: to transform the luxury real estate experience by prioritizing personal relationships, market expertise, and unwavering commitment to our clients' aspirations. What began as a boutique firm serving Beverly Hills has evolved into a internationally recognized leader in luxury property transactions.</p>
-                <p>Our success is not measured solely in transactions completed or records broken, but in the lasting relationships we forge and the trust our clients place in us during life's most significant decisions. We understand that behind every property search is a story—a family seeking their forever home, an entrepreneur looking for the perfect space to build their legacy, or individuals searching for a sanctuary that reflects their success.</p>
+                <p>Founded in 1995, Elite Properties emerged from a singular vision: to transform the luxury real estate
+                    experience by prioritizing personal relationships, market expertise, and unwavering commitment to
+                    our clients' aspirations. What began as a boutique firm serving Beverly Hills has evolved into a
+                    internationally recognized leader in luxury property transactions.</p>
+                <p>Our success is not measured solely in transactions completed or records broken, but in the lasting
+                    relationships we forge and the trust our clients place in us during life's most significant
+                    decisions. We understand that behind every property search is a story—a family seeking their forever
+                    home, an entrepreneur looking for the perfect space to build their legacy, or individuals searching
+                    for a sanctuary that reflects their success.</p>
                 <div class="about-quote">
-                    "Luxury is not about price—it's about the perfect alignment of property, purpose, and passion. Our role is to discover that alignment for every client we serve."
+                    "Luxury is not about price—it's about the perfect alignment of property, purpose, and passion. Our
+                    role is to discover that alignment for every client we serve."
                 </div>
-                <p>Our team comprises industry veterans with deep roots in their respective markets, each bringing unique insights and connections that provide our clients with unparalleled access to both on-market and off-market opportunities. We don't just sell properties; we curate experiences, facilitate dreams, and create lasting value.</p>
-                <p>With offices in the nation's most coveted luxury markets and partnerships with prestigious international brokerages, we offer truly global reach combined with intensely local expertise. This unique positioning allows us to serve clients whether they're seeking a coastal retreat in California, a Manhattan penthouse, or a villa in the French Riviera.</p>
+                <p>Our team comprises industry veterans with deep roots in their respective markets, each bringing
+                    unique insights and connections that provide our clients with unparalleled access to both on-market
+                    and off-market opportunities. We don't just sell properties; we curate experiences, facilitate
+                    dreams, and create lasting value.</p>
+                <p>With offices in the nation's most coveted luxury markets and partnerships with prestigious
+                    international brokerages, we offer truly global reach combined with intensely local expertise. This
+                    unique positioning allows us to serve clients whether they're seeking a coastal retreat in
+                    California, a Manhattan penthouse, or a villa in the French Riviera.</p>
             </div>
             <div class="about-image">
                 <div class="about-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=75&auto=format&fit=crop" alt="Luxury Interior" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=75&auto=format&fit=crop"
+                        alt="Luxury Interior" loading="lazy">
                     <div class="about-accent"></div>
                 </div>
             </div>
@@ -2117,28 +2412,39 @@
         <div class="section-header">
             <p class="section-subtitle">Our Values</p>
             <h2>The Elite Difference</h2>
-            <p class="section-description" style="color: rgba(255, 255, 255, 0.8);">These principles guide every decision we make and every relationship we build. They are not merely words on a page, but the foundation of our reputation and the reason clients trust us with their most important real estate decisions.</p>
+            <p class="section-description" style="color: rgba(255, 255, 255, 0.8);">These principles guide every
+                decision we make and every relationship we build. They are not merely words on a page, but the
+                foundation of our reputation and the reason clients trust us with their most important real estate
+                decisions.</p>
         </div>
         <div class="philosophy-content">
             <div class="philosophy-item">
                 <div class="philosophy-icon">🏛️</div>
                 <h4>Uncompromising Integrity</h4>
-                <p>We believe that trust is earned through consistent honesty, transparency, and ethical conduct. Our reputation is built on always putting our clients' interests first, even when it means advising against a transaction that might benefit us financially.</p>
+                <p>We believe that trust is earned through consistent honesty, transparency, and ethical conduct. Our
+                    reputation is built on always putting our clients' interests first, even when it means advising
+                    against a transaction that might benefit us financially.</p>
             </div>
             <div class="philosophy-item">
                 <div class="philosophy-icon">🎯</div>
                 <h4>Market Mastery</h4>
-                <p>Deep market knowledge isn't optional—it's essential. Our team invests countless hours studying market trends, architectural styles, neighborhood dynamics, and investment potential to provide insights that give our clients a decisive advantage.</p>
+                <p>Deep market knowledge isn't optional—it's essential. Our team invests countless hours studying market
+                    trends, architectural styles, neighborhood dynamics, and investment potential to provide insights
+                    that give our clients a decisive advantage.</p>
             </div>
             <div class="philosophy-item">
                 <div class="philosophy-icon">🤝</div>
                 <h4>White Glove Service</h4>
-                <p>Luxury service means anticipating needs before they're expressed. From private viewings to coordinating complex international transactions, we handle every detail with discretion, professionalism, and meticulous attention to detail.</p>
+                <p>Luxury service means anticipating needs before they're expressed. From private viewings to
+                    coordinating complex international transactions, we handle every detail with discretion,
+                    professionalism, and meticulous attention to detail.</p>
             </div>
             <div class="philosophy-item">
                 <div class="philosophy-icon">🌟</div>
                 <h4>Exclusive Access</h4>
-                <p>Our extensive network and long-standing relationships provide clients with access to properties before they reach the public market, giving them opportunities others simply don't have. Many of our finest transactions never see a listing.</p>
+                <p>Our extensive network and long-standing relationships provide clients with access to properties
+                    before they reach the public market, giving them opportunities others simply don't have. Many of our
+                    finest transactions never see a listing.</p>
             </div>
         </div>
     </section>
@@ -2153,32 +2459,38 @@
             <div class="feature-card">
                 <span class="feature-icon">🔍</span>
                 <h4>Property Search</h4>
-                <p>Leveraging advanced technology and personal connections, we identify properties that perfectly match your criteria, often before they're publicly available.</p>
+                <p>Leveraging advanced technology and personal connections, we identify properties that perfectly match
+                    your criteria, often before they're publicly available.</p>
             </div>
             <div class="feature-card">
                 <span class="feature-icon">📊</span>
                 <h4>Market Analysis</h4>
-                <p>Comprehensive market reports and trend analysis ensure you make informed decisions backed by data, local expertise, and strategic insights.</p>
+                <p>Comprehensive market reports and trend analysis ensure you make informed decisions backed by data,
+                    local expertise, and strategic insights.</p>
             </div>
             <div class="feature-card">
                 <span class="feature-icon">💼</span>
                 <h4>Investment Advisory</h4>
-                <p>Our team includes financial analysts who can help assess investment potential, tax implications, and long-term value appreciation strategies.</p>
+                <p>Our team includes financial analysts who can help assess investment potential, tax implications, and
+                    long-term value appreciation strategies.</p>
             </div>
             <div class="feature-card">
                 <span class="feature-icon">🔐</span>
                 <h4>Confidential Transactions</h4>
-                <p>Discretion is paramount. We facilitate private sales that protect your privacy while achieving optimal results.</p>
+                <p>Discretion is paramount. We facilitate private sales that protect your privacy while achieving
+                    optimal results.</p>
             </div>
             <div class="feature-card">
                 <span class="feature-icon">🌍</span>
                 <h4>Global Network</h4>
-                <p>International partnerships provide seamless service whether you're buying locally or exploring opportunities worldwide.</p>
+                <p>International partnerships provide seamless service whether you're buying locally or exploring
+                    opportunities worldwide.</p>
             </div>
             <div class="feature-card">
                 <span class="feature-icon">⚖️</span>
                 <h4>Negotiation Expertise</h4>
-                <p>Decades of experience in high-stakes negotiations ensure you achieve the best possible terms on every transaction.</p>
+                <p>Decades of experience in high-stakes negotiations ensure you achieve the best possible terms on every
+                    transaction.</p>
             </div>
         </div>
     </section>
@@ -2191,27 +2503,39 @@
         </div>
         <div class="testimonial-slider">
             <div class="testimonial active">
-                <p class="testimonial-text">Working with Elite Properties was an extraordinary experience from start to finish. Their professionalism, market knowledge, and genuine care for our needs made what could have been a stressful process remarkably smooth. They didn't just find us a house—they found us our dream home.</p>
+                <p class="testimonial-text">Working with Elite Properties was an extraordinary experience from start to
+                    finish. Their professionalism, market knowledge, and genuine care for our needs made what could have
+                    been a stressful process remarkably smooth. They didn't just find us a house—they found us our dream
+                    home.</p>
                 <p class="testimonial-author">SARAH & MICHAEL ANDERSON</p>
                 <p class="testimonial-role">Tech Entrepreneurs, Beverly Hills</p>
             </div>
             <div class="testimonial">
-                <p class="testimonial-text">The level of service exceeded every expectation. From the initial consultation to closing, every interaction was marked by expertise, discretion, and genuine commitment to achieving the best outcome. They are truly the gold standard in luxury real estate.</p>
+                <p class="testimonial-text">The level of service exceeded every expectation. From the initial
+                    consultation to closing, every interaction was marked by expertise, discretion, and genuine
+                    commitment to achieving the best outcome. They are truly the gold standard in luxury real estate.
+                </p>
                 <p class="testimonial-author">JAMES DAVIDSON</p>
                 <p class="testimonial-role">Investment Banker, Manhattan</p>
             </div>
             <div class="testimonial">
-                <p class="testimonial-text">Elite Properties represented us in a complex transaction involving multiple properties across two states. Their coordination, attention to detail, and negotiation skills were impeccable. We wouldn't trust anyone else with our real estate needs.</p>
+                <p class="testimonial-text">Elite Properties represented us in a complex transaction involving multiple
+                    properties across two states. Their coordination, attention to detail, and negotiation skills were
+                    impeccable. We wouldn't trust anyone else with our real estate needs.</p>
                 <p class="testimonial-author">VICTORIA CHEN</p>
                 <p class="testimonial-role">Private Equity Executive, San Francisco</p>
             </div>
             <div class="testimonial">
-                <p class="testimonial-text">What sets Elite Properties apart is their genuine understanding of what luxury truly means. They took the time to understand not just what we wanted in a property, but who we are as a family. The result was a home that feels like it was designed specifically for us.</p>
+                <p class="testimonial-text">What sets Elite Properties apart is their genuine understanding of what
+                    luxury truly means. They took the time to understand not just what we wanted in a property, but who
+                    we are as a family. The result was a home that feels like it was designed specifically for us.</p>
                 <p class="testimonial-author">ROBERT & AMANDA FOSTER</p>
                 <p class="testimonial-role">Film Producers, Malibu</p>
             </div>
             <div class="testimonial">
-                <p class="testimonial-text">Their market insights and strategic guidance were invaluable. They helped us identify an off-market opportunity that has already appreciated significantly. Elite Properties isn't just a real estate firm—they're trusted advisors.</p>
+                <p class="testimonial-text">Their market insights and strategic guidance were invaluable. They helped us
+                    identify an off-market opportunity that has already appreciated significantly. Elite Properties
+                    isn't just a real estate firm—they're trusted advisors.</p>
                 <p class="testimonial-author">DAVID MARTINEZ</p>
                 <p class="testimonial-role">Hedge Fund Manager, Connecticut</p>
             </div>
@@ -2230,7 +2554,9 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Elite Properties</h3>
-                <p>Setting the standard for luxury real estate excellence since 1995. Our commitment to integrity, expertise, and exceptional service has made us the trusted choice for discerning clients worldwide.</p>
+                <p>Setting the standard for luxury real estate excellence since 1995. Our commitment to integrity,
+                    expertise, and exceptional service has made us the trusted choice for discerning clients worldwide.
+                </p>
                 <div class="social-links">
                     <a href="#" aria-label="Facebook">f</a>
                     <a href="#" aria-label="Instagram">IG</a>
@@ -2264,7 +2590,8 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Elite Properties. All rights reserved. | Privacy Policy | Terms of Service | Equal Housing Opportunity</p>
+            <p>&copy; 2025 Elite Properties. All rights reserved. | Privacy Policy | Terms of Service | Equal Housing
+                Opportunity</p>
         </div>
     </footer>
 
@@ -2301,16 +2628,16 @@
 
         // Navbar scroll effect
         let lastScroll = 0;
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             const navbar = document.querySelector('.navbar');
             const currentScroll = window.pageYOffset;
-            
+
             if (currentScroll > 100) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
-            
+
             lastScroll = currentScroll;
         }, { passive: true });
 
@@ -2319,10 +2646,10 @@
         const navLinks = document.querySelector('.nav-links');
         const body = document.body;
 
-        menuToggle.addEventListener('click', function() {
+        menuToggle.addEventListener('click', function () {
             navLinks.classList.toggle('active');
             menuToggle.classList.toggle('active');
-            
+
             // Prevent body scroll when menu is open on mobile
             if (navLinks.classList.contains('active')) {
                 body.style.overflow = 'hidden';
@@ -2333,7 +2660,7 @@
 
         // Close mobile menu when clicking a link
         document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function () {
                 navLinks.classList.remove('active');
                 menuToggle.classList.remove('active');
                 body.style.overflow = 'auto';
@@ -2341,7 +2668,7 @@
         });
 
         // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (!navLinks.contains(e.target) && !menuToggle.contains(e.target) && navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
                 menuToggle.classList.remove('active');
@@ -2351,7 +2678,7 @@
 
         // Parallax effect on hero (disabled on mobile for performance)
         if (window.innerWidth > 768) {
-            window.addEventListener('scroll', function() {
+            window.addEventListener('scroll', function () {
                 const heroScroll = window.pageYOffset;
                 const heroBg = document.querySelector('.hero-bg');
                 if (heroBg && heroScroll < window.innerHeight) {
@@ -2366,7 +2693,7 @@
             rootMargin: '0px 0px -80px 0px'
         };
 
-        const observer = new IntersectionObserver(function(entries) {
+        const observer = new IntersectionObserver(function (entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
@@ -2400,7 +2727,7 @@
             updateCounter();
         }
 
-        const statsObserver = new IntersectionObserver(function(entries) {
+        const statsObserver = new IntersectionObserver(function (entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const counter = entry.target.querySelector('.stat-number');
@@ -2484,7 +2811,7 @@
         function openModal(index) {
             const modal = document.getElementById('propertyModal');
             const data = modalData[index];
-            
+
             document.getElementById('modalImage').src = data.image;
             document.getElementById('modalPrice').textContent = data.price;
             document.getElementById('modalTitle').textContent = data.title;
@@ -2493,7 +2820,7 @@
             document.getElementById('modalDescription1').textContent = data.desc1;
             document.getElementById('modalDescription2').textContent = data.desc2;
             document.getElementById('modalDescription3').textContent = data.desc3;
-            
+
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -2505,14 +2832,14 @@
         }
 
         // Close modal on outside click
-        document.getElementById('propertyModal').addEventListener('click', function(e) {
+        document.getElementById('propertyModal').addEventListener('click', function (e) {
             if (e.target === this) {
                 closeModal();
             }
         });
 
         // Escape key closes modal
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 closeModal();
             }
@@ -2526,9 +2853,9 @@
         function showTestimonial(index) {
             testimonials[currentTestimonial].classList.remove('active');
             dots[currentTestimonial].classList.remove('active');
-            
+
             currentTestimonial = index;
-            
+
             testimonials[currentTestimonial].classList.add('active');
             dots[currentTestimonial].classList.add('active');
         }
@@ -2610,4 +2937,5 @@
         }
     </script>
 </body>
+
 </html>
